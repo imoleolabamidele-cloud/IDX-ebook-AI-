@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#100b19">
+<meta name="description" content="IDX ebook AI - Turn your ideas into professionally written books.">
+
+<title>IDX ebook AI — Create Your Book</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --bg: #100b19;
+    --surface: rgba(24, 17, 35, .88);
+    --surface2: rgba(255,255,255,.055);
+    --purple: #a855f7;
+    --purple2: #7c3aed;
+    --text: #ffffff;
+    --muted: #aaa2b7;
+    --border: rgba(255,255,255,.12);
+    --radius: 20px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    background-image:
+        linear-gradient(
+            rgba(12,7,19,.65),
+            rgba(12,7,19,.83)
+        ),
+        url("background.png");
+
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+button, textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* HEADER */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 76px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    background: rgba(13,8,21,.55);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand img {
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+.brand-name span {
+    color: #c084fc;
+}
+
+.header-label {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* MAIN */
+
+.app {
+    min-height: 100vh;
+    padding-top: 76px;
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 22px 180px;
+    flex: 1;
+}
+
+/* WELCOME */
+
+.welcome {
+    min-height: calc(100vh - 150px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: .4s ease;
+}
+
+.welcome h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 62px);
+    line-height: 1.15;
+    max-width: 760px;
+    margin-bottom: 20px;
+}
+
+.welcome h1 span {
+    color: #c084fc;
+}
+
+.welcome p {
+    max-width: 500px;
+    color: #d0c7d9;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+}
+
+/* COMPOSER */
+
+.composer {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    background: rgba(25,17,37,.94);
+    border: 1px solid rgba(192,132,252,.38);
+    border-radius: 25px;
+    padding: 17px;
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.3),
+        0 0 35px rgba(168,85,247,.08);
+    backdrop-filter: blur(22px);
+    transition: .35s ease;
+}
+
+.composer:focus-within {
+    border-color: #a855f7;
+    box-shadow: 0 0 35px rgba(168,85,247,.18);
+}
+
+.composer textarea {
+    display: block;
+    width: 100%;
+    min-height: 45px;
+    max-height: 200px;
+    resize: none;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    line-height: 1.7;
+    padding: 10px;
+}
+
+.composer textarea::placeholder {
+    color: #a69bb2;
+}
+
+.composer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 5px 0;
+}
+
+.composer-hint {
+    color: #91869e;
+    font-size: 11px;
+}
+
+.send-button {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#c084fc,#7c3aed);
+    color: white;
+    font-size: 23px;
+    display: grid;
+    place-items: center;
+    transition: .2s;
+}
+
+.send-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(168,85,247,.4);
+}
+
+/* CHAT MODE */
+
+.app.is-chat .welcome {
+    display: none;
+}
+
+.app.is-chat .workspace {
+    padding-top: 35px;
+}
+
+.chat-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+    gap: 9px;
+    animation: appear .3s ease;
+}
+
+.message.user {
+    align-self: flex-end;
+}
+
+.message.assistant {
+    align-self: flex-start;
+}
+
+.message-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #c084fc;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.message-content {
+    line-height: 1.85;
+    font-size: 15px;
+    color: #eee8f4;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.user .message-content {
+    background: rgba(168,85,247,.17);
+    border: 1px solid rgba(192,132,252,.18);
+    border-radius: 20px 20px 5px 20px;
+    padding: 15px 19px;
+}
+
+/* GENERATION INDICATOR */
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 0;
+}
+
+.typing-indicator span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c084fc;
+    animation: bounce 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes bounce {
+    0%,60%,100% { transform: translateY(0); opacity: .4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* BOTTOM COMPOSER */
+
+.bottom-composer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 20px 20px 25px;
+    background: linear-gradient(
+        transparent,
+        rgba(12,7,19,.96) 35%
+    );
+}
+
+.bottom-composer .composer {
+    max-width: 800px;
+}
+/* BOOK GALLERY */
+
+.book-section {
+    width: 100%;
+    margin-top: 55px;
+    animation: appear .5s ease;
+}
+
+.section-heading {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 22px;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(230px,1fr));
+    gap: 25px;
+}
+
+.book-card {
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(28,19,40,.92);
+    border: 1px solid var(--border);
+    transition: .3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(192,132,252,.55);
+    box-shadow: 0 15px 35px rgba(0,0,0,.25);
+}
+
+.book-cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #251632;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.book-info {
+    padding: 18px;
+}
+
+.book-info h3 {
+    font-family: 'Playfair Display',serif;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.book-info p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.book-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 17px;
+}
+
+.action-button {
+    flex: 1;
+    min-height: 42px;
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    color: white;
+    background: var(--surface2);
+}
+
+.action-button.primary {
+    background: linear-gradient(135deg,#a855f7,#7c3aed);
+    border: none;
+}
+
+.action-button:hover {
+    filter: brightness(1.15);
+}
+
+/* MODALS */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,.78);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 28px;
+    background: #1c1428;
+    border: 1px solid rgba(192,132,252,.3);
+    border-radius: 23px;
+    box-shadow: 0 25px 100px rgba(0,0,0,.5);
+    animation: appear .25s ease;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    color: white;
+    font-size: 20px;
+}
+
+.modal h2 {
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.modal p {
+    color: #b9afc4;
+    line-height: 1.7;
+    font-size: 13px;
+}
+
+.payment-cover {
+    width: 125px;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.payment-price {
+    font-size: 29px;
+    font-weight: 800;
+    margin: 15px 0;
+}
+
+.payment-price span {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+.modal-button {
+    width: 100%;
+    min-height: 50px;
+    border: none;
+    border-radius: 13px;
+    background: linear-gradient(135deg,#c084fc,#7c3aed);
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.modal-button:hover {
+    filter: brightness(1.12);
+}
+
+.modal-button:disabled {
+    opacity: .5;
+}
+
+/* PREVIEW */
+
+.preview-modal {
+    max-width: 850px;
+    width: 100%;
+    padding: 35px;
+    background: #fdfbf7;
+    color: #29232d;
+}
+
+.preview-modal .close-modal {
+    background: #eee7f2;
+    color: #29232d;
+}
+
+.preview-title {
+    font-family: 'Playfair Display',serif;
+    font-size: 30px;
+    margin: 25px 0;
+    color: #35233f;
+}
+
+.preview-content {
+    line-height: 1.9;
+    font-family: Georgia,serif;
+    font-size: 16px;
+    color: #333;
+    overflow-wrap: anywhere;
+}
+
+.preview-content h2 {
+    font-family: 'Playfair Display',serif;
+    margin: 30px 0 15px;
+    color: #392347;
+}
+
+.preview-content p {
+    color: #444;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 17px;
+    white-space: pre-wrap;
+}
+
+/* NOTIFICATIONS */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 110px;
+    transform: translateX(-50%);
+    z-index: 500;
+    background: #2a1c38;
+    border: 1px solid rgba(192,132,252,.4);
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.4);
+    max-width: calc(100% - 30px);
+    text-align: center;
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+    .header {
+        height: 66px;
+        padding: 0 18px;
+    }
+
+    .brand img {
+        width: 37px;
+        height: 37px;
+    }
+
+    .brand-name {
+        font-size: 17px;
+    }
+
+    .header-label {
+        font-size: 9px;
+    }
+
+    .app {
+        padding-top: 66px;
+    }
+
+    .workspace {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .welcome {
+        min-height: calc(100vh - 145px);
+    }
+
+    .welcome h1 {
+        font-size: 39px;
+    }
+
+    .welcome p {
+        font-size: 13px;
+    }
+
+    .composer {
+        padding: 12px;
+        border-radius: 20px;
+    }
+
+    .composer textarea {
+        font-size: 14px;
+    }
+
+    .message {
+        max-width: 94%;
+    }
+
+    .message-content {
+        font-size: 14px;
+    }
+
+    .bottom-composer {
+        padding: 15px 12px 20px;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        gap: 12px;
+    }
+
+    .book-info {
+        padding: 12px;
+    }
+
+    .book-info h3 {
+        font-size: 15px;
+    }
+
+    .book-actions {
+        flex-direction: column;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+
+    .preview-modal {
+        padding: 22px;
+    }
+
+    .preview-title {
+        font-size: 25px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+
+        <img src="logo.png" alt="IDX ebook AI logo">
+
+        <div class="brand-name">
+            IDX <span>ebook AI</span>
+        </div>
+
+    </div>
+
+    <div class="header-label">
+        AI BOOK STUDIO
+    </div>
+
+</header>
+
+<div class="app" id="app">
+
+    <main class="workspace">
+
+        <section class="welcome" id="welcome">
+
+            <h1>
+                Your ideas deserve
+                <span>to become books.</span>
+            </h1>
+
+            <p>
+                Describe the book you want to create.
+                Let AI transform your imagination into
+                a professionally written publication.
+            </p>
+
+            <div class="composer" id="homeComposer">
+
+                <textarea
+                    id="homeInput"
+                    placeholder="Write the book you want to create..."
+                    rows="1"
+                    maxlength="5000"
+                ></textarea>
+
+                <div class="composer-bottom">
+
+                    <span class="composer-hint">
+                        Describe your book in your own words.
+                    </span>
+
+                    <button
+                        class="send-button"
+                        id="homeSend"
+                        aria-label="Send prompt"
+                    >↑</button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="chat-area hidden" id="chatArea"></section>
+
+        <section class="book-section hidden" id="bookSection">
+
+            <h2 class="section-heading">
+                Your generated book
+            </h2>
+
+            <div class="book-grid" id="bookGrid"></div>
+
+        </section>
+
+    </main>
+
+    <div class="bottom-composer hidden" id="bottomComposer">
+
+        <div class="composer">
+
+            <textarea
+                id="chatInput"
+                placeholder="Continue your conversation..."
+                rows="1"
+                maxlength="5000"
+            ></textarea>
+
+            <div class="composer-bottom">
+
+                <span class="composer-hint">
+                    IDX ebook AI
+                </span>
+
+                <button
+                    class="send-button"
+                    id="chatSend"
+                    aria-label="Send message"
+                >↑</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PAYMENT MODAL -->
+
+<div class="modal-overlay hidden" id="paymentModal">
+
+    <div class="modal">
+
+        <button class="close-modal" data-close="paymentModal">×</button>
+
+        <h2>Download your book</h2>
+
+        <img
+            class="payment-cover"
+            id="paymentCover"
+            alt="Book cover"
+        >
+
+        <p id="paymentBookTitle"></p>
+
+        <div class="payment-price">
+            $5 <span>USD</span>
+        </div>
+
+        <button
+            class="modal-button"
+            id="payButton"
+        >
+            Pay $5 & Download
+        </button>
+
+    </div>
+
+</div>
+
+<!-- BOOK PREVIEW -->
+
+<div class="modal-overlay hidden" id="previewModal">
+
+    <div class="modal preview-modal">
+
+        <button class="close-modal" data-close="previewModal">×</button>
+
+        <h1 class="preview-title" id="previewTitle"></h1>
+
+        <div class="preview-content" id="previewContent"></div>
+
+    </div>
+
+</div>
+
+<div class="toast hidden" id="toast"></div>
+<script>
+
+/*
+ IDX EBOOK AI
+ FRONTEND APPLICATION
+
+ API CONTRACT:
+
+ POST /api/chat
+ POST /api/payment/create
+ GET  /api/payment/status?order=ORDER_UUID
+ GET  /api/books/BOOK_ID/pdf
+
+ All sensitive operations run through Cloudflare Functions.
+*/
+
+"use strict";
+
+const API = "/api";
+
+const state = {
+    sessionId: getSessionId(),
+    messages: [],
+    books: [],
+    currentBook: null,
+    assistantElement: null,
+    generating: false
+};
+
+function getSessionId() {
+
+    let id = localStorage.getItem("idx_session");
+
+    if (!id) {
+        id = crypto.randomUUID();
+        localStorage.setItem("idx_session", id);
+    }
+
+    return id;
+}
+
+const $ = id => document.getElementById(id);
+
+function toast(message) {
+
+    const el = $("toast");
+
+    el.textContent = message;
+    el.classList.remove("hidden");
+
+    clearTimeout(toast.timer);
+
+    toast.timer = setTimeout(() => {
+        el.classList.add("hidden");
+    }, 3500);
+}
+
+function setLoading(value) {
+
+    state.generating = value;
+
+    $("homeSend").disabled = value;
+    $("chatSend").disabled = value;
+
+    $("homeInput").disabled = value;
+    $("chatInput").disabled = value;
+}
+
+function autoResize(textarea) {
+
+    textarea.style.height = "auto";
+
+    textarea.style.height =
+        Math.min(textarea.scrollHeight, 200) + "px";
+}
+
+["homeInput","chatInput"].forEach(id => {
+
+    $(id).addEventListener("input", function() {
+        autoResize(this);
+    });
+
+});
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+
+}
+
+function showChatMode() {
+
+    $("app").classList.add("is-chat");
+
+    $("welcome").classList.add("hidden");
+    $("chatArea").classList.remove("hidden");
+    $("bottomComposer").classList.remove("hidden");
+
+}
+
+function addMessage(role, content = "") {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "message " + role;
+
+    const label = document.createElement("div");
+
+    label.className = "message-label";
+
+    label.textContent =
+        role === "user" ? "YOU" : "IDX EBOOK AI";
+
+    const text = document.createElement("div");
+
+    text.className = "message-content";
+
+    text.textContent = content;
+
+    wrapper.append(label,text);
+
+    $("chatArea").appendChild(wrapper);
+
+    wrapper.scrollIntoView({
+        behavior: "smooth",
+        block: "end"
+    });
+
+    return { wrapper, text };
+}
+
+function addTypingIndicator() {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "message assistant";
+
+    wrapper.innerHTML = `
+        <div class="message-label">IDX EBOOK AI</div>
+
+        <div class="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+
+    $("chatArea").appendChild(wrapper);
+
+    wrapper.scrollIntoView({
+        behavior: "smooth",
+        block: "end"
+    });
+
+    return wrapper;
+}
+
+/*
+ SEND MESSAGE
+*/
+
+async function sendMessage(value) {
+
+    const message = value.trim();
+
+    if (!message || state.generating) return;
+
+    showChatMode();
+
+    addMessage("user",message);
+
+    state.messages.push({
+        role: "user",
+        content: message
+    });
+
+    $("homeInput").value = "";
+    $("chatInput").value = "";
+
+    autoResize($("homeInput"));
+    autoResize($("chatInput"));
+
+    setLoading(true);
+
+    const indicator = addTypingIndicator();
+
+    let assistantText = "";
+
+    try {
+
+        const response = await fetch(API + "/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+    bookId: book.id,
+    sessionId: state.sessionId,
+    customerEmail: customerEmail
+})
+
+                history: state.messages.slice(-20)
+
+            })
+
+        });
+
+        if (!response.ok) {
+
+            const error = await response.json().catch(() => ({}));
+
+            throw new Error(
+                error.error || "Book generation request failed."
+            );
+
+        }
+
+        if (!response.body) {
+            throw new Error("Streaming is not supported by this response.");
+        }
+
+        indicator.remove();
+
+        const output = addMessage("assistant","");
+
+        state.assistantElement = output.text;
+
+        await readAIStream(response, chunk => {
+
+            assistantText += chunk;
+
+            output.text.textContent = assistantText;
+
+            output.wrapper.scrollIntoView({
+                behavior: "smooth",
+                block: "end"
+            });
+
+        });
+
+        state.messages.push({
+            role: "assistant",
+            content: assistantText
+        });
+
+    } catch(error) {
+
+        indicator.remove();
+
+        addMessage(
+            "assistant",
+            error.message || "Something went wrong. Please try again."
+        );
+
+        toast(error.message || "Generation failed.");
+
+    } finally {
+
+        setLoading(false);
+
+    }
+
+}
+
+/*
+ SERVER-SENT EVENTS READER
+
+ Expected events:
+
+ event: delta
+ data: {"text":"..."}
+
+ event: book_ready
+ data: {"book":{...}}
+
+ event: error
+ data: {"message":"..."}
+
+*/
+
+async function readAIStream(response,onText) {
+
+    const reader = response.body.getReader();
+
+    const decoder = new TextDecoder();
+
+    let buffer = "";
+
+    while (true) {
+
+        const {value,done} = await reader.read();
+
+        if (done) break;
+
+        buffer += decoder.decode(value,{stream:true});
+
+        let boundary;
+
+        while ((boundary = buffer.indexOf("\n\n")) !== -1) {
+
+            const block = buffer.slice(0,boundary);
+
+            buffer = buffer.slice(boundary + 2);
+
+            processStreamBlock(block,onText);
+
+        }
+
+    }
+
+    buffer += decoder.decode();
+
+    if (buffer.trim()) {
+        processStreamBlock(buffer,onText);
+    }
+
+}
+
+function processStreamBlock(block,onText) {
+
+    let event = "message";
+    let data = "";
+
+    for (const line of block.split(/\r?\n/)) {
+
+        if (line.startsWith("event:")) {
+            event = line.slice(6).trim();
+        }
+
+        if (line.startsWith("data:")) {
+            data += line.slice(5).trim();
+        }
+
+    }
+
+    if (!data) return;
+
+    let payload;
+
+    try {
+        payload = JSON.parse(data);
+    } catch {
+        return;
+    }
+
+    if (event === "delta") {
+
+        if (typeof payload.text === "string") {
+            onText(payload.text);
+        }
+
+    }
+
+    else if (event === "book_ready") {
+
+        const book = payload.book || payload;
+
+        addBook(book);
+
+    }
+
+    else if (event === "error") {
+
+        throw new Error(
+            payload.message || "AI generation failed."
+        );
+
+    }
+
+}
+
+/*
+ BOOK COVER CREATOR
+
+ DeepSeek generates the manuscript.
+ This browser canvas creates a designed cover image.
+ A separate image-generation provider would be required
+ for genuinely AI-generated artwork.
+*/
+
+function createBookCover(book) {
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = 1000;
+    canvas.height = 1000;
+
+    const ctx = canvas.getContext("2d");
+
+    const gradient = ctx.createLinearGradient(
+        0,0,1000,1000
+    );
+
+    gradient.addColorStop(0,"#241239");
+    gradient.addColorStop(.5,"#61318c");
+    gradient.addColorStop(1,"#140c23");
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(0,0,1000,1000);
+
+    ctx.strokeStyle = "rgba(255,255,255,.45)";
+    ctx.lineWidth = 3;
+
+    ctx.strokeRect(65,65,870,870);
+
+    ctx.textAlign = "center";
+
+    ctx.fillStyle = "#e9c8ff";
+
+    ctx.font = "bold 32px Georgia";
+
+    ctx.fillText("IDX EBOOK AI",500,170);
+
+    ctx.fillStyle = "#ffffff";
+
+    const title = String(book.title || "Untitled Book");
+
+    let words = title.split(/\s+/);
+
+    let lines = [];
+    let current = "";
+
+    ctx.font = "bold 72px Georgia";
+
+    for (const word of words) {
+
+        const test = current
+            ? current + " " + word
+            : word;
+
+        if (ctx.measureText(test).width > 790 && current) {
+
+            lines.push(current);
+
+            current = word;
+
+        } else {
+
+            current = test;
+
+        }
+
+    }
+
+    if (current) lines.push(current);
+
+    const limitedLines = lines.slice(0,5);
+
+    const startY = 430 - (limitedLines.length * 45);
+
+    limitedLines.forEach((line,index) => {
+
+        ctx.fillText(
+            line,
+            500,
+            startY + index * 105
+        );
+
+    });
+
+    ctx.font = "28px Georgia";
+
+    ctx.fillStyle = "#e5d5f2";
+
+    const subtitle = String(book.subtitle || "A professionally created book");
+
+    ctx.fillText(
+        subtitle.slice(0,65),
+        500,
+        760
+    );
+
+    ctx.fillStyle = "#d6b5ef";
+
+    ctx.font = "bold 25px Arial";
+
+    ctx.fillText(
+        "A NEW PUBLICATION",
+        500,
+        870
+    );
+
+    return canvas.toDataURL("image/png");
+
+}
+
+/*
+ ADD GENERATED BOOK
+*/
+
+function addBook(book) {
+
+    if (!book || !book.title || !book.id) {
+
+        toast("The server returned incomplete book information.");
+
+        return;
+
+    }
+
+    const existing = state.books.find(
+        item => item.id === book.id
+    );
+
+    if (existing) return;
+
+    const completeBook = {
+
+        ...book,
+
+        cover: book.coverDataUrl || createBookCover(book)
+
+    };
+
+    state.books.push(completeBook);
+
+    state.currentBook = completeBook;
+
+    renderBook(completeBook);
+
+}
+
+function renderBook(book) {
+
+    $("bookSection").classList.remove("hidden");
+
+    const card = document.createElement("article");
+
+    card.className = "book-card";
+
+    const cover = document.createElement("div");
+
+    cover.className = "book-cover";
+
+    const image = document.createElement("img");
+
+    image.src = book.cover;
+
+    image.alt = book.title + " book cover";
+
+    cover.appendChild(image);
+
+    const info = document.createElement("div");
+
+    info.className = "book-info";
+
+    const title = document.createElement("h3");
+
+    title.textContent = book.title;
+
+    const description = document.createElement("p");
+
+    description.textContent =
+        book.description || "Your generated book is ready.";
+
+    const actions = document.createElement("div");
+
+    actions.className = "book-actions";
+
+    const preview = document.createElement("button");
+
+    preview.className = "action-button";
+
+    preview.textContent = "Preview";
+
+    preview.onclick = () => openPreview(book);
+
+    const download = document.createElement("button");
+
+    download.className = "action-button primary";
+
+    download.textContent = "Download PDF";
+
+    download.onclick = () => openPayment(book);
+
+    actions.append(preview,download);
+
+    info.append(title,description,actions);
+
+    card.append(cover,info);
+
+    $("bookGrid").prepend(card);
+
+    $("bookSection").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+/*
+ BOOK PREVIEW
+*/
+
+function openPreview(book) {
+
+    $("previewTitle").textContent = book.title;
+
+    const container = $("previewContent");
+
+    container.replaceChildren();
+
+    if (Array.isArray(book.chapters)) {
+
+        book.chapters.forEach((chapter,index) => {
+
+            const heading = document.createElement("h2");
+
+            heading.textContent =
+                chapter.title || `Chapter ${index + 1}`;
+
+            const paragraph = document.createElement("p");
+
+            paragraph.textContent =
+                chapter.content || "";
+
+            container.append(heading,paragraph);
+
+        });
+
+    } else {
+
+        const paragraph = document.createElement("p");
+
+        paragraph.textContent =
+            book.content || book.description || "Preview unavailable.";
+
+        container.appendChild(paragraph);
+
+    }
+
+    $("previewModal").classList.remove("hidden");
+
+}
+
+/*
+ PAYMENT
+
+ The backend creates the Paymegate order.
+ The browser receives only the hosted checkout URL.
+
+ Never place the Paymegate API key here.
+*/
+
+function openPayment(book) {
+
+    state.currentBook = book;
+
+    $("paymentCover").src = book.cover;
+
+    $("paymentBookTitle").textContent = book.title;
+
+    $("paymentModal").classList.remove("hidden");
+
+}
+
+/*
+ CREATE PAYMEGATE CHECKOUT
+*/
+
+async function payForBook() {
+
+    const book = state.currentBook;
+
+    if (!book || !book.id) {
+        toast("Book information is unavailable.");
+        return;
+    }
+
+    const button = $("payButton");
+
+    button.disabled = true;
+
+    button.textContent = "Preparing secure checkout...";
+
+    try {
+
+        const response = await fetch(
+            API + "/payment/create",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    bookId: book.id,
+
+                    sessionId: state.sessionId
+
+                })
+
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error || "Unable to create payment."
+            );
+
+        }
+
+        if (!result.checkoutUrl || !result.orderUUID) {
+
+            throw new Error(
+                "Invalid payment checkout response."
+            );
+
+        }
+
+        sessionStorage.setItem(
+            "idx_pending_order",
+            result.orderUUID
+        );
+
+        sessionStorage.setItem(
+            "idx_pending_book",
+            book.id
+        );
+
+        window.location.assign(result.checkoutUrl);
+
+    } catch(error) {
+
+        toast(error.message);
+
+        button.disabled = false;
+
+        button.textContent = "Pay $5 & Download";
+
+    }
+
+}
+
+/*
+ PAYMENT RETURN
+
+ Paymegate returns the customer to the website.
+ A redirect alone does not prove payment.
+
+ The server must verify the payment before
+ providing a downloadable PDF.
+*/
+
+async function checkPaymentReturn() {
+
+    const params = new URLSearchParams(
+        window.location.search
+    );
+
+    const returnedOrder = params.get("order");
+
+    const storedOrder = sessionStorage.getItem(
+        "idx_pending_order"
+    );
+
+    const orderUUID = returnedOrder || storedOrder;
+
+    if (!orderUUID) return;
+
+    toast("Checking your payment...");
+
+    const bookId = sessionStorage.getItem(
+        "idx_pending_book"
+    );
+
+    let attempts = 0;
+
+    while (attempts < 12) {
+
+        attempts++;
+
+        try {
+
+            const response = await fetch(
+                API + "/payment/status?order=" +
+                encodeURIComponent(orderUUID),
+                {
+                    cache: "no-store"
+                }
+            );
+
+            const result = await response.json();
+
+            if (response.ok && result.paid === true) {
+
+                if (result.bookId && bookId &&
+                    result.bookId !== bookId) {
+
+                    throw new Error("Payment does not match this book.");
+
+                }
+
+                sessionStorage.removeItem("idx_pending_order");
+
+                sessionStorage.removeItem("idx_pending_book");
+
+                toast("Payment confirmed. Preparing your PDF...");
+
+                if (result.downloadUrl) {
+
+                    window.location.assign(result.downloadUrl);
+
+                } else if (result.bookId) {
+
+                    window.location.assign(
+                        API + "/books/" +
+                        encodeURIComponent(result.bookId) +
+                        "/pdf"
+                    );
+
+                } else {
+
+                    throw new Error("Verified PDF download is unavailable.");
+
+                }
+
+                return;
+
+            }
+
+            if (result.status === "FAILED" ||
+                result.status === "EXPIRED") {
+
+                throw new Error("Payment was not completed.");
+
+            }
+
+        } catch(error) {
+
+            if (error.message === "Payment was not completed." ||
+                error.message === "Payment does not match this book." ||
+                error.message === "Verified PDF download is unavailable.") {
+
+                toast(error.message);
+
+                sessionStorage.removeItem("idx_pending_order");
+
+                return;
+
+            }
+
+        }
+
+        await new Promise(resolve =>
+            setTimeout(resolve,5000)
+        );
+
+    }
+
+    toast("Payment is still being verified. Please check again shortly.");
+
+}
+
+/*
+ CLOSE MODALS
+*/
+
+document.querySelectorAll("[data-close]").forEach(button => {
+
+    button.addEventListener("click",() => {
+
+        const modal = $(button.dataset.close);
+
+        modal.classList.add("hidden");
+
+    });
+
+});
+
+["paymentModal","previewModal"].forEach(id => {
+
+    $(id).addEventListener("click",event => {
+
+        if (event.target === $(id)) {
+            $(id).classList.add("hidden");
+        }
+
+    });
+
+});
+
+/*
+ BUTTON EVENTS
+*/
+
+$("homeSend").addEventListener("click",() => {
+
+    sendMessage($("homeInput").value);
+
+});
+
+$("chatSend").addEventListener("click",() => {
+
+    sendMessage($("chatInput").value);
+
+});
+
+$("payButton").addEventListener("click",payForBook);
+
+["homeInput","chatInput"].forEach(id => {
+
+    $(id).addEventListener("keydown",event => {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey &&
+            !event.isComposing
+        ) {
+
+            event.preventDefault();
+
+            sendMessage($(id).value);
+
+        }
+
+    });
+
+});
+
+/*
+ INITIALIZATION
+*/
+
+async function initialize() {
+
+    await checkPaymentReturn();
+
+}
+
+initialize();
+
+</script>
+
+</body>
+</html>
